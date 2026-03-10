@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psycholinguistics — A Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #8b4513;
+    --accent-light: #c4733a;
+    --muted: #7a7268;
+    --rule: #d4cdc0;
+    --highlight: #f0e6d0;
+    --sidebar-w: 260px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--ink);
+    color: var(--paper);
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-brand {
+    padding: 36px 28px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sidebar-brand .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+  }
+
+  .sidebar-brand h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--paper);
+  }
+
+  .sidebar-brand p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .sidebar-nav {
+    padding: 24px 0;
+    flex: 1;
+  }
+
+  .nav-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 0 28px;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+
+  .nav-section-label:first-child { margin-top: 0; }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 28px;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--paper);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--accent-light);
+  }
+
+  .nav-link .icon {
+    font-size: 15px;
+    opacity: 0.7;
+    width: 18px;
+    text-align: center;
+  }
+
+  .sidebar-footer {
+    padding: 20px 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    line-height: 1.6;
+  }
+
+  /* MAIN */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 64px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,69,19,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 20px;
+  }
+
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 600;
+    line-height: 1.15;
+    white-space: nowrap;
+    margin-bottom: 24px;
+  }
+
+  .hero h2 em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+
+  .hero-body {
+    max-width: 100%;
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--accent-light);
+  }
+
+  .stat-item .desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 64px 64px;
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 20px;
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-light);
+    letter-spacing: 2px;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .section-intro {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+
+  /* JOURNAL CARDS */
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .journal-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .journal-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .journal-card:hover {
+    border-color: var(--accent-light);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .journal-card:hover::before { opacity: 1; }
+
+  .journal-card .publisher {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+  }
+
+  .journal-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+
+  .journal-card p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .journal-card a {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+
+  .journal-card a:hover { color: var(--accent-light); }
+
+  /* INSTITUTES */
+  .institute-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .institute-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    padding: 24px 28px;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    align-items: start;
+    transition: all 0.2s;
+  }
+
+  .institute-item:hover {
+    border-color: var(--accent-light);
+    background: var(--highlight);
+  }
+
+  .institute-location {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 1.5;
+  }
+
+  .institute-location .country {
+    display: block;
+    font-size: 10px;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .institute-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .institute-content p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .institute-content a {
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    display: inline-block;
+    margin-top: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .institute-content a:hover { border-color: var(--accent); }
+
+  /* RESEARCH FOCUSES */
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .research-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px;
+    transition: all 0.25s;
+  }
+
+  .research-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .research-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--highlight);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+
+  .research-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .research-card p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .key-questions {
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+
+  .key-questions .kq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+  }
+
+  .key-questions ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .key-questions ul li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .key-questions ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--rule);
+  }
+
+  .sample-papers {
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+    margin-top: 12px;
+  }
+
+  .sample-papers .sp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .sample-papers ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sample-papers ul li {
+    font-size: 12px;
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .sample-papers ul li::before {
+    content: '↗';
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+    font-size: 10px;
+    top: 1px;
+  }
+
+  .sample-papers ul li a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--rule);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .sample-papers ul li a:hover {
+    color: var(--accent-light);
+    border-color: var(--accent-light);
+  }
+
+  .paper-meta {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* CONFERENCES */
+  .conference-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .conference-item {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 20px;
+    padding: 20px 24px;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    align-items: center;
+    transition: all 0.2s;
+  }
+
+  .conference-item:hover {
+    border-color: var(--accent-light);
+    background: var(--highlight);
+  }
+
+  .conf-abbrev {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .conf-abbrev .conf-year {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  .conf-details h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .conf-details p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .conf-meta {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .conf-meta .conf-freq {
+    display: block;
+    font-size: 10px;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .conf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .conf-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: all 0.2s;
+  }
+
+  .conf-links a:hover {
+    color: var(--accent-light);
+    border-color: var(--accent-light);
+  }
+
+  /* TAGS */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--muted);
+    background: var(--cream);
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section { animation: fadeUp 0.4s ease forwards; }
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    .main { margin-left: 0; }
+    .hero { padding: 48px 32px; }
+    .section { padding: 48px 32px; }
+    .institute-item { grid-template-columns: 1fr; gap: 8px; }
+    .conference-item { grid-template-columns: 70px 1fr; }
+    .conf-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="label">Field Guide</div>
+    <h1>Psycho&shy;linguistics</h1>
+    <p>A navigational resource for students, researchers, and curious minds.</p>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Introduction</div>
+    <a class="nav-link active" href="#intro">
+      <span class="icon">◈</span> What is the field?
+    </a>
+    <div class="nav-section-label">Resources</div>
+    <a class="nav-link" href="#journals">
+      <span class="icon">📖</span> Key Journals
+    </a>
+    <a class="nav-link" href="#institutes">
+      <span class="icon">🏛</span> Global Institutes
+    </a>
+    <div class="nav-section-label">Research</div>
+    <a class="nav-link" href="#focuses">
+      <span class="icon">🔬</span> Research Focuses
+    </a>
+    <div class="nav-section-label">Community</div>
+    <a class="nav-link" href="#conferences">
+      <span class="icon">🎙</span> Conferences
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    curated by <span style="color:rgba(255,255,255,0.55);">Jingyi Gao</span><br>
+    built with <span style="color:var(--accent-light);">Claude</span>
+  </div>
+</aside>
+
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero" id="intro">
+    <div class="hero-eyebrow">A Field Guide · Psycholinguistics</div>
+    <h2>The science of <em>language</em> in the mind</h2>
+    <p class="hero-body">
+      Psycholinguistics is the study of how language lives in the mind. It sits at the intersection of linguistics, cognitive psychology, and neuroscience, and it asks deceptively simple questions: how do we understand a sentence the moment we hear it, before it is even finished? How do we retrieve the right word from a mental vocabulary of tens of thousands in under a second? How does a child acquire an entire grammatical system in just a few years, with no formal instruction?
+    </p>
+    <p class="hero-body" style="margin-top:16px;">
+      The answers turn out to be surprisingly complex and revealing. Research on memory and sentence processing shows that the brain is constantly making predictions about what comes next, loading upcoming words into a kind of mental buffer before they arrive. Studies of bilingual speakers show that both languages stay active in the mind simultaneously, each one quietly competing with the other even when only one is being used. When a stroke damages a specific region of the brain, it can selectively strip away a person's ability to form grammatical sentences while leaving their vocabulary intact, or vice versa, offering a rare glimpse into how language is organised at the neural level. And the recent emergence of large language models has thrown a new kind of question into the mix: if a machine trained purely on text can predict language with human-like fluency, what does that tell us about how humans actually acquire and process it?
+    </p>
+    <p class="hero-body" style="margin-top:16px;">
+      This resource is built for students and curious minds who want to find their footing in the field — whether you have just encountered psycholinguistics for the first time, are considering it as a research direction, or simply want to know where the interesting work is happening. Here you will find the key journals where research is published, the institutions leading the field globally, the major research questions driving current work, and the conferences where the community gathers.
+    </p>
+    <div class="hero-intro-ref">
+      <a href="https://oecs.mit.edu/pub/y1uhdz0y" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);text-decoration:none;border:1px solid rgba(255,255,255,0.12);padding:8px 16px;border-radius:2px;margin-top:24px;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(196,115,58,0.6)';this.style.color='rgba(196,115,58,0.9)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='rgba(255,255,255,0.45)'">
+        <span>◈</span> For a more comprehensive introduction to the field, start with the MIT Open Encyclopedia: Psycholinguistics →
+      </a>
+    </div><div class="hero-stats">
+      <div class="stat-item">
+        <div class="num">6</div>
+        <div class="desc">Core journals</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">8</div>
+        <div class="desc">Global institutes</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">7</div>
+        <div class="desc">Research streams</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">6</div>
+        <div class="desc">Major conferences</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNALS -->
+  <section class="section" id="journals">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Key Journals</h2>
+    </div>
+    <p class="section-intro">These are the primary publication venues where psycholinguistic research is peer-reviewed and disseminated. For anyone entering the field — or looking to publish within it — these titles form the essential reading landscape.</p>
+
+    <div class="journal-grid">
+      <div class="journal-card">
+        <div class="publisher">Elsevier</div>
+        <h3>Journal of Memory and Language</h3>
+        <p>One of the most prestigious venues in the field. Publishes experimental research on memory, language comprehension, and production, with a strong emphasis on reading and sentence processing.</p>
+        <a href="https://www.sciencedirect.com/journal/journal-of-memory-and-language" target="_blank">Visit journal →</a>
+      </div>
+      <div class="journal-card">
+        <div class="publisher">Elsevier</div>
+        <h3>Cognition</h3>
+        <p>Broad-scope cognitive science journal with significant psycholinguistics content. Known for high-impact, theoretically ambitious work on language, thought, and their interface.</p>
+        <a href="https://www.sciencedirect.com/journal/cognition" target="_blank">Visit journal →</a>
+      </div>
+      <div class="journal-card">
+        <div class="publisher">Cambridge University Press</div>
+        <h3>Applied Psycholinguistics</h3>
+        <p>Focuses on real-world language applications — language development, disorders, bilingualism, and education. Open access. Bridging theoretical research and practical outcomes.</p>
+        <a href="https://www.cambridge.org/core/journals/applied-psycholinguistics" target="_blank">Visit journal →</a>
+      </div>
+      <div class="journal-card">
+        <div class="publisher">Springer Nature</div>
+        <h3>Journal of Psycholinguistic Research</h3>
+        <p>Interdisciplinary reach across linguistics, psychology, biology, and sociology. Publishes work on both typical and atypical language, with recent focus on East Asian languages.</p>
+        <a href="https://link.springer.com/journal/10936" target="_blank">Visit journal →</a>
+      </div>
+      <div class="journal-card">
+        <div class="publisher">Frontiers</div>
+        <h3>Frontiers in Language Sciences — Psycholinguistics</h3>
+        <p>Open-access section dedicated to cognitive and psychological processes in language production and comprehension. Led by researchers at Saarland University.</p>
+        <a href="https://www.frontiersin.org/journals/language-sciences/sections/psycholinguistics" target="_blank">Visit journal →</a>
+      </div>
+      <div class="journal-card">
+        <div class="publisher">MIT Press</div>
+        <h3>Language Acquisition</h3>
+        <p>Dedicated to the study of how children and adults acquire language. Covers first and second language acquisition, theoretical linguistics, and developmental psychology.</p>
+        <a href="https://www.tandfonline.com/journals/hlac20" target="_blank">Visit journal →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTITUTES -->
+  <section class="section" id="institutes">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Global Research Institutes</h2>
+    </div>
+    <p class="section-intro">These institutions are among the most productive and influential centres for psycholinguistic research globally, each with distinct methodological and theoretical focuses.</p>
+
+    <div class="institute-list">
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">Netherlands</span>
+          Nijmegen
+        </div>
+        <div class="institute-content">
+          <h3>Max Planck Institute for Psycholinguistics</h3>
+          <p>The world's leading dedicated psycholinguistics research institute. Hosts the Language Archive, conducts cross-linguistic fieldwork, and leads research in language acquisition, speech production, and the biology of language.</p>
+          <a href="https://www.mpi.nl" target="_blank">mpi.nl →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">USA</span>
+          Cambridge, MA
+        </div>
+        <div class="institute-content">
+          <h3>MIT Brain and Cognitive Sciences (BCS)</h3>
+          <p>Home to leading research on syntactic processing, sentence comprehension, and the neural basis of language. Closely associated with the CUNY conference tradition and formal psycholinguistics.</p>
+          <a href="https://bcs.mit.edu" target="_blank">bcs.mit.edu →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">UK</span>
+          London
+        </div>
+        <div class="institute-content">
+          <h3>UCL Division of Psychology and Language Sciences</h3>
+          <p>One of Europe's strongest language science departments, covering speech perception, bilingualism, language disorders, and computational modelling of language processing.</p>
+          <a href="https://www.ucl.ac.uk/pals" target="_blank">ucl.ac.uk/pals →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">Germany</span>
+          Leipzig
+        </div>
+        <div class="institute-content">
+          <h3>Max Planck Institute for Evolutionary Anthropology — Linguistics</h3>
+          <p>Focuses on language diversity, language evolution, and cross-linguistic comparison. Hosts large-scale typological databases and research on language universals and variation.</p>
+          <a href="https://www.eva.mpg.de/linguistics/" target="_blank">eva.mpg.de →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">USA</span>
+          San Diego, CA
+        </div>
+        <div class="institute-content">
+          <h3>UCSD Cognitive Science Department</h3>
+          <p>Interdisciplinary research combining psycholinguistics, neuroscience, and AI. Strong in language processing, embodied cognition, and computational approaches to language.</p>
+          <a href="https://cogsci.ucsd.edu" target="_blank">cogsci.ucsd.edu →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">UK</span>
+          Edinburgh
+        </div>
+        <div class="institute-content">
+          <h3>University of Edinburgh — Centre for Language Evolution</h3>
+          <p>World-leading research on how language evolves, both culturally and biologically. Links psycholinguistics to evolutionary theory, computational modelling, and cultural transmission.</p>
+          <a href="https://www.lel.ed.ac.uk/cle/" target="_blank">lel.ed.ac.uk →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">Canada</span>
+          Montreal, QC
+        </div>
+        <div class="institute-content">
+          <h3>McGill University — Linguistics and Cognitive Science</h3>
+          <p>Strong in bilingualism, second language acquisition, and speech perception. A major centre for research on language in multilingual and francophone contexts.</p>
+          <a href="https://www.mcgill.ca/linguistics/" target="_blank">mcgill.ca →</a>
+        </div>
+      </div>
+      <div class="institute-item">
+        <div class="institute-location">
+          <span class="country">China</span>
+          Shanghai
+        </div>
+        <div class="institute-content">
+          <h3>Shanghai International Studies University — Institute of Language Sciences</h3>
+          <p>A growing centre for multilingual AI and applied psycholinguistics, particularly focused on East Asian languages, code-switching, and multilingual language processing.</p>
+          <a href="https://infadm.shisu.edu.cn/_s27/_t431/main.psp" target="_blank">Institute of Language Sciences →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH FOCUSES -->
+  <section class="section" id="focuses">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Research Focuses</h2>
+    </div>
+    </div>
+    <p class="section-intro">The major streams of psycholinguistic inquiry over the past two decades, each with its own methods, debates, and real-world implications. Many of these streams increasingly intersect with AI and computational language modelling.</p>
+
+    <div class="research-grid">
+      <div class="research-card">
+        <span class="research-tag">Sentence Processing</span>
+        <h3>Language Prediction & Anticipation</h3>
+        <p>How do listeners and readers predict upcoming words before they arrive? Research using eye-tracking, EEG, and reading time paradigms has shown that the brain is continuously generating predictions about what comes next — making language comprehension an active, anticipatory process.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>What contextual cues drive prediction?</li>
+            <li>Do good predictors process language more efficiently?</li>
+            <li>How does prediction interact with working memory?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Eye-tracking</span>
+          <span class="tag">ERP</span>
+          <span class="tag">Reading</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4850025/" target="_blank">What do we mean by prediction in language comprehension?</a>
+              <span class="paper-meta">Kuperberg & Jaeger · Psychonomic Bulletin & Review · 2016</span>
+            </li>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6530918/" target="_blank">Integration and Prediction in Language Processing: A Synthesis</a>
+              <span class="paper-meta">Ferreira & Chantavarin · Current Directions in Psychological Science · 2018</span>
+            </li>
+            <li>
+              <a href="https://www.sciencedirect.com/science/article/abs/pii/S0010027799000591" target="_blank">Incremental interpretation at verbs: Restricting the domain of subsequent reference</a>
+              <span class="paper-meta">Altmann & Kamide · Cognition · 1999 — the classic VWP prediction study</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <span class="research-tag">Bilingualism</span>
+        <h3>Bilingual Language Processing</h3>
+        <p>How do bilinguals manage two languages in a single cognitive system? Research explores how both languages are simultaneously active, how speakers switch between them, and what this reveals about cognitive control and executive function more broadly.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>How is language selection controlled?</li>
+            <li>Does bilingualism confer cognitive advantages?</li>
+            <li>How do the two languages interact during comprehension?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Code-switching</span>
+          <span class="tag">Executive Function</span>
+          <span class="tag">Cognitive Control</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6328260/" target="_blank">Bilingualism reveals fundamental variation in language processing</a>
+              <span class="paper-meta">Fricke, Zirnstein, Navarro-Torres & Kroll · Bilingualism: Language and Cognition · 2019</span>
+            </li>
+            <li>
+              <a href="https://www.cambridge.org/core/journals/bilingualism-language-and-cognition/article/abs/revised-hierarchical-model-a-critical-review-and-assessment/6FA9DF67B3630F980DCCF86F5A6BB9EC" target="_blank">The Revised Hierarchical Model: A critical review and assessment</a>
+              <span class="paper-meta">Kroll, Van Hell, Tokowicz & Green · Bilingualism: Language & Cognition · 2010</span>
+            </li>
+            <li>
+              <a href="https://www.annualreviews.org/doi/10.1146/annurev-linguistics-011718-011820" target="_blank">The Advantages of Bilingualism Debate</a>
+              <span class="paper-meta">Antoniou · Annual Review of Linguistics · 2019</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <span class="research-tag">Acquisition</span>
+        <h3>First & Second Language Acquisition</h3>
+        <p>How do children acquire their first language with such remarkable speed and accuracy? And how does adult second language learning differ? This stream spans developmental psychology, formal linguistics, and educational research.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>What is the role of statistical learning in acquisition?</li>
+            <li>Is there a critical period for language?</li>
+            <li>How does L1 structure influence L2 processing?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Developmental</span>
+          <span class="tag">SLA</span>
+          <span class="tag">Input & Exposure</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://www.science.org/doi/10.1126/science.274.5294.1926" target="_blank">Statistical Learning by 8-Month-Old Infants</a>
+              <span class="paper-meta">Saffran, Aslin & Newport · Science · 1996 — foundational statistical learning paper, 4,900+ citations</span>
+            </li>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6559801/" target="_blank">A critical period for second language acquisition: Evidence from 2/3 million English speakers</a>
+              <span class="paper-meta">Hartshorne, Tenenbaum & Pinker · Cognition · 2018 — large-scale reappraisal of the critical period hypothesis</span>
+            </li>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10927252/" target="_blank">Studying SLA in the age of large language models</a>
+              <span class="paper-meta">Marian · Brain and Language · 2023 — emergentist accounts of SLA and LLM parallels</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <span class="research-tag">Neuroscience</span>
+        <h3>Neural Bases of Language</h3>
+        <p>What happens in the brain when we process language? Neuroimaging and EEG studies have refined our understanding of Broca's and Wernicke's areas, and identified distributed networks involved in syntax, semantics, and prosody.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>Are syntactic and semantic processing neurally distinct?</li>
+            <li>How does the brain recover language function after stroke?</li>
+            <li>What do language disorders reveal about normal processing?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">fMRI</span>
+          <span class="tag">EEG</span>
+          <span class="tag">Aphasia</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://www.nature.com/articles/nrn2113" target="_blank">The cortical organization of speech processing</a>
+              <span class="paper-meta">Hickok & Poeppel · Nature Reviews Neuroscience · 2007 — the dual-stream model, 5,000+ citations</span>
+            </li>
+            <li>
+              <a href="https://www.pnas.org/doi/10.1073/pnas.2105646118" target="_blank">The neural architecture of language: Integrative modeling converges on predictive processing</a>
+              <span class="paper-meta">Schrimpf et al. · PNAS · 2021 — benchmark linking LLMs, fMRI, and behavioural data</span>
+            </li>
+            <li>
+              <a href="https://journals.physiology.org/doi/full/10.1152/physrev.00006.2011" target="_blank">The Brain Basis of Language Processing: From Structure to Function</a>
+              <span class="paper-meta">Friederici · Physiological Reviews · 2011 — comprehensive neuroimaging review across fMRI, EEG, MEG</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <span class="research-tag">Speech</span>
+        <h3>Speech Perception & Production</h3>
+        <p>How do listeners map continuous acoustic signals onto discrete linguistic units? And how does the speaker plan and execute utterances in real time? This stream is closely connected to phonetics, audiology, and AI speech recognition.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>How is variability in speech normalised by listeners?</li>
+            <li>What drives speech errors and self-monitoring?</li>
+            <li>How do humans outperform machines in noisy conditions?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Phonetics</span>
+          <span class="tag">ASR</span>
+          <span class="tag">Prosody</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://www.sciencedirect.com/science/article/abs/pii/S0749596X97926120" target="_blank">Tracking the time course of spoken word recognition using eye movements</a>
+              <span class="paper-meta">Allopenna, Magnuson & Tanenhaus · Journal of Memory and Language · 1998</span>
+            </li>
+            <li>
+              <a href="https://doi.org/10.1016/j.brainres.2015.02.014" target="_blank">Four central questions about prediction in language processing</a>
+              <span class="paper-meta">Huettig · Brain Research · 2015</span>
+            </li>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11148270/" target="_blank">Predictive language processing: integrating comprehension and production</a>
+              <span class="paper-meta">Gastaldon et al. · Frontiers in Psychology · 2024</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <span class="research-tag">Computation</span>
+        <h3>Computational Psycholinguistics</h3>
+        <p>Can computational models simulate how humans process language? This stream builds formal models of sentence processing, word recognition, and language production — increasingly in dialogue with large language models and AI.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>Do LLMs process language like humans do?</li>
+            <li>Can surprisal models predict reading times?</li>
+            <li>What do AI systems tell us about human cognition?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">LLMs</span>
+          <span class="tag">Surprisal</span>
+          <span class="tag">Modelling</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://www.sciencedirect.com/science/article/pii/S0885230824000834" target="_blank">Demystifying large language models in second language development research</a>
+              <span class="paper-meta">Yan Cong · Computer Speech & Language · 2024 — operationalises LLM-Surprisal for L2 writing assessment and Chinese learners' English development</span>
+            </li>
+            <li>
+              <a href="https://www.annualreviews.org/content/journals/10.1146/annurev-linguistics-032020-051035" target="_blank">Syntactic Structure from Deep Learning</a>
+              <span class="paper-meta">Linzen & Baroni · Annual Review of Linguistics · 2021</span>
+            </li>
+            <li>
+              <a href="https://direct.mit.edu/tacl/article/doi/10.1162/TACL.a.58/134311/Large-Language-Models-Are-Human-Like-Internally" target="_blank">Large Language Models Are Human-Like Internally</a>
+              <span class="paper-meta">Kuribayashi et al. · Transactions of the ACL · 2025 — mechanistic interpretability links LLM layers to N400 and reading times</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <span class="research-tag">Applied</span>
+        <h3>Language Disorders & Clinical Psycholinguistics</h3>
+        <p>How do acquired and developmental language disorders — aphasia, dyslexia, SLI — inform our models of normal language processing? This clinically oriented stream connects psycholinguistics to speech therapy, education, and rehabilitation.</p>
+        <div class="key-questions">
+          <div class="kq-label">Key questions</div>
+          <ul>
+            <li>What do breakdown patterns reveal about language architecture?</li>
+            <li>How can psycholinguistic theory improve intervention?</li>
+            <li>How does dyslexia relate to phonological processing?</li>
+          </ul>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Aphasia</span>
+          <span class="tag">Dyslexia</span>
+          <span class="tag">Intervention</span>
+        </div>
+        <div class="sample-papers">
+          <div class="sp-label">Sample Papers</div>
+          <ul>
+            <li>
+              <a href="https://www.tandfonline.com/doi/full/10.1080/02687038.2020.1770196" target="_blank">Linguistic theory and aphasia: an overview</a>
+              <span class="paper-meta">Garraffa & Fyndanis · Aphasiology · 2020 — integrates theoretical linguistics, psycholinguistics and neuroscience of language</span>
+            </li>
+            <li>
+              <a href="https://journals.sagepub.com/doi/10.1177/21582440241289816" target="_blank">A Bibliometric and Visualized Study of the Knowledge Domain of Language Disorder Research</a>
+              <span class="paper-meta">Hu, Fan & Wang · SAGE Open · 2024 — maps dominant themes across dyslexia, SLI/DLD, and aphasia research</span>
+            </li>
+            <li>
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6430503/" target="_blank">Understanding Dyslexia in the Context of Developmental Language Disorders</a>
+              <span class="paper-meta">Adlof &amp; Hogan · Language, Speech, and Hearing Services in Schools · 2018 — connects phonological deficit theory to DLD and clinical intervention</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFERENCES -->
+  <section class="section" id="conferences">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Key Conferences</h2>
+    </div>
+    </div>
+    <p class="section-intro">Where the field gathers to present new findings, debate methods, and build community. These are the conferences where careers are made and paradigms are shifted.</p>
+
+    <div class="conference-list">
+      <div class="conference-item">
+        <div class="conf-abbrev">HSP
+          <span class="conf-year">Annual · USA</span>
+        </div>
+        <div class="conf-details">
+          <h3>Annual Conference on Human Sentence Processing (formerly CUNY)</h3>
+          <p>The flagship annual conference for sentence processing research. Attracts leading researchers in parsing, prediction, and psycholinguistic methodology. HSP 2026 is at MIT, Cambridge MA — theme: Language and Thought in Minds and Machines.</p>
+          <div class="conf-links">
+            <a href="https://hsp2026.org/" target="_blank">HSP 2026 website →</a>
+            <a href="https://hsp2025.github.io" target="_blank">HSP 2025 website →</a>
+            <a href="https://www.hspsociety.org/" target="_blank">HSP Society →</a>
+          </div>
+        </div>
+        <div class="conf-meta">
+          <span class="conf-freq">Annual</span>
+          March
+        </div>
+      </div>
+
+      <div class="conference-item">
+        <div class="conf-abbrev">AMLaP
+          <span class="conf-year">Annual · Europe</span>
+        </div>
+        <div class="conf-details">
+          <h3>Architectures and Mechanisms for Language Processing</h3>
+          <p>The leading European psycholinguistics conference. Covers sentence processing, production, and computational modelling. Rotates across European cities annually. Watch recorded talks from AMLaP 2025 below.</p>
+          <div class="conf-links">
+            <a href="https://www.youtube.com/watch?v=GzFxyY_sohQ&list=PL4hnbqNUUmgS5xQDweqoIJ7wb6EIkLRLO&index=1" target="_blank">▶ AMLaP 2025 recorded talks →</a>
+          </div>
+        </div>
+        <div class="conf-meta">
+          <span class="conf-freq">Annual</span>
+          September
+        </div>
+      </div>
+
+      <div class="conference-item">
+        <div class="conf-abbrev">BUCLD
+          <span class="conf-year">Annual · USA</span>
+        </div>
+        <div class="conf-details">
+          <h3>Boston University Conference on Language Development</h3>
+          <p>The premier conference for language acquisition research — and one of the largest student-run linguistics conferences in the world. BUCLD 50 takes place November 6–9, 2025, with special commemorative events marking five decades of the conference.</p>
+          <div class="conf-links">
+            <a href="https://www.bu.edu/bucld/" target="_blank">BUCLD official website →</a>
+          </div>
+        </div>
+        <div class="conf-meta">
+          <span class="conf-freq">Annual</span>
+          November
+        </div>
+      </div>
+
+      <div class="conference-item">
+        <div class="conf-abbrev">AAAL
+          <span class="conf-year">Annual · USA</span>
+        </div>
+        <div class="conf-details">
+          <h3>American Association for Applied Linguistics</h3>
+          <p>Bridges psycholinguistics and applied linguistics, covering SLA, bilingualism, language policy, and educational linguistics. AAAL 2026 is in Chicago, March 21–24. Hybrid format with virtual day included.</p>
+          <div class="conf-links">
+            <a href="https://www.aaal.org/aaal-2026-conference" target="_blank">AAAL 2026 website →</a>
+            <a href="https://www.aaal.org/conference" target="_blank">Conference archive →</a>
+          </div>
+        </div>
+        <div class="conf-meta">
+          <span class="conf-freq">Annual</span>
+          March
+        </div>
+      </div>
+
+      <div class="conference-item">
+        <div class="conf-abbrev">IASCL
+          <span class="conf-year">Triennial · Intl</span>
+        </div>
+        <div class="conf-details">
+          <h3>International Association for the Study of Child Language</h3>
+          <p>The largest international gathering for child language researchers. Covers first language acquisition across typologically diverse languages, typical and atypical development, and multilingual contexts. Next congress: 2027.</p>
+          <div class="conf-links">
+            <a href="https://www.childlanguage.org" target="_blank">IASCL website →</a>
+          </div>
+        </div>
+        <div class="conf-meta">
+          <span class="conf-freq">Triennial</span>
+          Summer
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
